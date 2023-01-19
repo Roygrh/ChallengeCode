@@ -1,4 +1,5 @@
 using ChallengeCode.DTO;
+using System.IO;
 
 namespace ChallengeCode.Services;
 
@@ -49,11 +50,19 @@ public class InputSupplierService{
         return result;
     }
 
-    public (List<Drone>, List<Location>) ProvideInput(){
+    public (List<Drone>, List<Location>) ProvideInput(string path){
         var drones = new List<Drone>();
         var locations = new List<Location>();
         var result = (drones, locations);
 
+        FileInfo file = new FileInfo(path);
+        FileStream fileStream = file.Open(FileMode.OpenOrCreate, FileAccess.Read , FileShare.Read);
+        StreamReader streamReader = new StreamReader(fileStream);
+        while(!streamReader.EndOfStream){
+            string line = streamReader.ReadLine();
+        }
+        streamReader.Close();
+        fileStream.Close();
         return result;
     }
 }
